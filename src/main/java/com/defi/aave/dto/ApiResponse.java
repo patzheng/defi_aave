@@ -1,6 +1,7 @@
 package com.defi.aave.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
  * @param <T> Data type
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiResponse<T> {

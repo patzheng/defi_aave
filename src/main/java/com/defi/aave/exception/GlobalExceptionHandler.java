@@ -94,4 +94,28 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ApiResponse.error("An unexpected error occurred: " + ex.getMessage()));
     }
+    
+    /**
+     * Handle API client exceptions (Etherscan, CoinGecko)
+     */
+    @ExceptionHandler(org.springframework.web.client.HttpClientErrorException.class)
+    public ResponseEntity<ApiResponse<Void>> handleHttpClientErrorException(
+            org.springframework.web.client.HttpClientErrorException ex) {
+        log.error("External API client error: {}", ex.getMessage());
+        
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                .body(ApiResponse.error(502, "External API error: " + ex.getMessage()));
+    }
+    
+    /**
+     * Handle API timeout exceptions
+     */
+    @ExceptionHandler(org.springframework.web.client.ResourceAccessException.class)
+    public ResponseEntity<ApiResponse<Void>> handleResourceAccessException(
+            org.springframework.web.client.ResourceAccessException ex) {
+        log.error("API timeout or network error: {}", ex.getMessage());
+        
+        return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT)
+                .body(ApiResponse.error(504, "API timeout: " + ex.getMessage()));
+    }
 }

@@ -60,3 +60,19 @@ management:
   endpoint:
     health:
       show-details: always
+
+# AAVE Token Analysis Configuration
+aave:
+  etherscan:
+    api-key: ${ETHERSCAN_API_KEY:YOUR_API_KEY_HERE}
+    base-url: https://api.etherscan.io/api
+  token:
+    contract-address: 0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9
+    min-holding: 3000
+  coingecko:
+    api-url: https://api.coingecko.com/api/v3
+    token-id: aave
+  sync:
+    batch-size: 100
+  cache:
+    price-ttl: 300
