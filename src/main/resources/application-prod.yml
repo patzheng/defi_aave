@@ -1,0 +1,33 @@
+# Production Environment Configuration
+
+spring:
+  # DataSource Configuration - MySQL Database
+  datasource:
+    url: jdbc:mysql://localhost:3306/defi_aave?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ${DB_PASSWORD:your_password}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+  
+  # JPA Configuration
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  
+  # H2 Console - Disabled in production
+  h2:
+    console:
+      enabled: false
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.defi.aave: INFO
+    org.hibernate.SQL: WARN
